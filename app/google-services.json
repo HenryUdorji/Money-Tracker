@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "162027195509",
+    "project_id": "hash-concepts",
+    "storage_bucket": "hash-concepts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162027195509:android:dbcc88afcff9485f0b3c3c",
+        "android_client_info": {
+          "package_name": "com.hashconcepts.moneytracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162027195509-u60jrtn60q5b443j1o3act0vp94m8roh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hashconcepts.moneytracker",
+            "certificate_hash": "830d784eb79d53d51a2c5c16dc4df081eb00a06e"
+          }
+        },
+        {
+          "client_id": "162027195509-92o0meca8lflcnch5cehmghkg88s3krt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiZ6AaW5ehRhB1lWUO-kzCWrEdejTArEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162027195509-92o0meca8lflcnch5cehmghkg88s3krt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
