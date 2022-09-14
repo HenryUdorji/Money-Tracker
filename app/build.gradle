@@ -1,6 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.devtools.ksp' version '1.7.0-1.0.6'
+    id 'com.google.gms.google-services'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -43,6 +49,14 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    //Compose Destinations
+    applicationVariants.all { variant ->
+        kotlin.sourceSets {
+            getByName(variant.name) {
+                kotlin.srcDir("build/generated/ksp/${variant.name}/kotlin")
+            }
+        }
+    }
 }
 
 dependencies {
@@ -59,4 +73,59 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+
+    //Coil
+    implementation "io.coil-kt:coil-compose:2.1.0"
+
+    //Coroutines
+    def coroutinesVersion = "1.6.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutinesVersion"
+
+    //Coroutine Lifecycle Scopes
+    def lifecycleVersion = "2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+    //Compose ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
+
+    //Dagger - Hilt
+    def hiltVersion = "2.42"
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    def hiltCompilerVersion = "1.0.0"
+    kapt "androidx.hilt:hilt-compiler:$hiltCompilerVersion"
+    implementation "androidx.hilt:hilt-navigation-compose:$hiltCompilerVersion"
+
+    //Timber
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    //Truth - Fluent Test
+    testImplementation "com.google.truth:truth:1.1.3"
+
+    //Navigation made easier
+    def destinationVersion = "1.6.14-beta"
+    implementation "io.github.raamcosta.compose-destinations:core:$destinationVersion"
+    ksp "io.github.raamcosta.compose-destinations:ksp:$destinationVersion"
+
+    //Room
+    def roomVersion = "2.4.3"
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    //kotlin extension and coroutine support for room
+    implementation "androidx.room:room-ktx:$roomVersion"
+
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:30.3.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+
+    //Accompanist
+    def accompanistVersion = "0.25.0"
+    implementation "com.google.accompanist:accompanist-permissions:$accompanistVersion"
+    implementation "com.google.accompanist:accompanist-pager:$accompanistVersion"
+
+    //Play core
+    implementation 'com.google.android.play:core:1.10.3'
 }
