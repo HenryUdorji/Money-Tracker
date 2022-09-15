@@ -50,10 +50,10 @@ jobs:
         id: publish_to_play_store
         run: ./gradlew
           -PANDROID_PUBLISHER_CREDENTIALS="../${{ steps.decode_google_play_api_file.outputs.filePath }}"
-          -PKEYSTORE_FILE="../${{ steps.decode_keystore_file.outputs.filePath }}"
-          -PKEYSTORE_PASSWORD=${{ secrets.SIGNING_KEYSTORE_PASSWORD }}
-          -PKEY_ALIAS=${{ secrets.SIGNING_KEY_ALIAS }}
-          -PKEY_PASSWORD=${{ secrets.SIGNING_KEY_PASSWORD }}
+          -PSIGNING_JKS_FILE_PATH="../${{ steps.decode_keystore_file.outputs.filePath }}"
+          -PSIGNING_KEYSTORE_PASSWORD=${{ secrets.SIGNING_KEYSTORE_PASSWORD }}
+          -PSIGNING_KEY_ALIAS=${{ secrets.SIGNING_KEY_ALIAS }}
+          -PSIGNING_KEY_PASSWORD=${{ secrets.SIGNING_KEY_PASSWORD }}
           publishBundle --max-workers 1
 
 
