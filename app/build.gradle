@@ -7,7 +7,24 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.dagger.hilt.android'
     id 'com.google.firebase.crashlytics'
+    id 'com.github.triplet.play' version '3.7.0'
     id 'kotlin-kapt'
+}
+
+def versionMajor = 0 // range: 0 - 99
+def versionMinor = 0 // range: 0 - 99
+def versionPatch = 1 // range: 0 - 99
+
+
+def localPropertiesFile = rootProject.file("local.properties")
+def localProperties = new Properties()
+if (localPropertiesFile.exists()) {
+    localProperties.load(new FileInputStream(localPropertiesFile))
+} else {
+    localProperties.setProperty("SIGNING_KEYSTORE_PASSWORD", "${System.getenv('ANDROID_SIGNING_KEY_PASSWORD')}")
+    localProperties.setProperty("SIGNING_KEY_ALIAS", "${System.getenv('ANDROID_SIGNING_KEY_ALIAS')}")
+    localProperties.setProperty("SIGNING_KEY_PASSWORD", "${System.getenv('ANDROID_SIGNING_KEY_PASSWORD')}")
+    localProperties.setProperty("SIGNING_JKS_FILE_PATH", "${System.getenv('SIGNING_JKS_FILE_PATH')}")
 }
 
 android {
@@ -17,8 +34,8 @@ android {
         applicationId "com.hashconcepts.moneytracker"
         minSdk 23
         targetSdk 32
-        versionCode 1
-        versionName "0.0.1"
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch * 1
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -35,10 +52,21 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            storeFile file("${localProperties['SIGNING_JKS_FILE_PATH']}")
+            storePassword "${localProperties['SIGNING_KEY_PASSWORD']}"
+            keyAlias = "${localProperties['SIGNING_KEY_ALIAS']}"
+            keyPassword "${localProperties['SIGNING_KEY_PASSWORD']}"
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -67,6 +95,29 @@ android {
             }
         }
     }
+
+    playConfigs {
+        // Enable play publishing only on the build environment for prod
+        register("release") {
+            def enablePlayPublish = System.getenv("ANDROID_PUBLISHER_CREDENTIALS") != null
+            enabled.set(enablePlayPublish)
+        }
+    }
+}
+
+import com.github.triplet.gradle.androidpublisher.ReleaseStatus
+
+play {
+    track.set("internal")
+    releaseStatus.set(ReleaseStatus.COMPLETED)
+    resolutionStrategy.set(com.github.triplet.gradle.androidpublisher.ResolutionStrategy.IGNORE)
+    updatePriority.set(4)
+    def releaseNamed =  "${android.defaultConfig.versionName}"
+    releaseName.set(releaseNamed)
+    defaultToAppBundles.set(true)
+
+    // Only enable in the build environment
+    enabled.set(false)
 }
 
 dependencies {

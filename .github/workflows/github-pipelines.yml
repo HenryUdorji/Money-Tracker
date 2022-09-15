@@ -23,9 +23,40 @@ jobs:
       - name: Change Wrapper Permissions
         run: chmod +x ./gradlew
 
-      # Execute gradle build command with stacktrace flag
+      - name: Decode Keystore File
+        id: decode_keystore_file
+        uses: timheuer/base64-to-file@v1.1
+        with:
+            fileDir: './secrets'
+            fileName: 'HashConceptsKey.jks'
+            encodedString: ${{ secrets.SIGNING_KEY_FILE }}
+
+      - name: Decode Google Play API Key
+        id: decode_google_play_api_file
+        uses: timheuer/base64-to-file@v1.1
+        with:
+            fileDir: './secrets'
+            fileName: 'google-play-api-key.json'
+            encodedString: ${{ secrets.ANDROID_PUBLISHER_CREDENTIALS }}
+
       - name: Build with gradle
-        run: ./gradlew build --stacktrace # Execute gradle script to build project
+        run: ./gradlew build
+
+      - name: Build Release AAB
+        id: build_release
+        run: ./gradlew bundleRelease
+
+      - name: Build & publish to Google Play (BETA)
+        id: publish_to_play_store
+        run: ./gradlew
+          -PANDROID_PUBLISHER_CREDENTIALS="../${{ steps.decode_google_play_api_file.outputs.filePath }}"
+          -PKEYSTORE_FILE="../${{ steps.decode_keystore_file.outputs.filePath }}"
+          -PKEYSTORE_PASSWORD=${{ secrets.SIGNING_KEYSTORE_PASSWORD }}
+          -PKEY_ALIAS=${{ secrets.SIGNING_KEY_ALIAS }}
+          -PKEY_PASSWORD=${{ secrets.SIGNING_KEY_PASSWORD }}
+          publishBundle --max-workers 1
+
+
 
 
   lint-check:
@@ -51,7 +82,7 @@ jobs:
 
   unit-test:
     name: Unit Test
-    needs: [lint-check]
+    needs: [ lint-check ]
     runs-on: ubuntu-latest
 
     steps:
