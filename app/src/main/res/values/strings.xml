@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Money Tracker</string>
+    <string name="gain_total_control_of_your_money">Gain total control\n of your money</string>
+    <string name="become_your_own_manager">Become your own money manager\n and make every cent count</string>
+    <string name="know_where_your_money_goes">Know where your\n money goes</string>
+    <string name="track_your_transaction_easily">Track your transaction easily,\n with categories and financial report</string>
+    <string name="planning_ahead">Planning ahead</string>
+    <string name="setup_your_budget">Setup your budget for each category\n so you in control</string>
+    <string name="continue_text">Continue</string>
 </resources>
