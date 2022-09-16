@@ -2,6 +2,9 @@
 # Money Tracker 
 An Expense tracking and Budgeting app
 
+## Credits
+- [UI Design](https://www.figma.com/file/8NCp3sIZauavSf6xtOaxaZ/Montra---Expense-Tracker-UI-Kit-(Community)?node-id=374%3A25)
+
 ## ScreenShots
 
 ### Login Screen (Dark Mode)
