@@ -1,4 +1,4 @@
-package com.hashconcepts.moneytracker
+package com.hashconcepts.moneytracker.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

@@ -7,4 +7,8 @@
     <string name="planning_ahead">Planning ahead</string>
     <string name="setup_your_budget">Setup your budget for each category\n so you in control</string>
     <string name="continue_text">Continue</string>
+    <string name="home">Home</string>
+    <string name="transaction">Transaction</string>
+    <string name="budget">Budget</string>
+    <string name="profile">Profile</string>
 </resources>
