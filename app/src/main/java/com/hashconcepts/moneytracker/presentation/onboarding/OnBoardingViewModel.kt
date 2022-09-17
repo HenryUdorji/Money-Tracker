@@ -1,7 +1,7 @@
-package com.hashconcepts.moneytracker.onboarding
+package com.hashconcepts.moneytracker.presentation.onboarding
 
 import androidx.lifecycle.ViewModel
-import com.hashconcepts.moneytracker.common.data.SharedPrefUtil
+import com.hashconcepts.moneytracker.data.SharedPrefUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

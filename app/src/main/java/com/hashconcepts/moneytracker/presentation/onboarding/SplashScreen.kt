@@ -1,4 +1,4 @@
-package com.hashconcepts.moneytracker.onboarding
+package com.hashconcepts.moneytracker.presentation.onboarding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

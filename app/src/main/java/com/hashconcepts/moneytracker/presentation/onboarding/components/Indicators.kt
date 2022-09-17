@@ -1,4 +1,4 @@
-package com.hashconcepts.moneytracker.onboarding.components
+package com.hashconcepts.moneytracker.presentation.onboarding.components
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState

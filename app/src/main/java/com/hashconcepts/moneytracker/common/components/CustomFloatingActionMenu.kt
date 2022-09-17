@@ -69,7 +69,7 @@ fun BoxScope.CustomFloatingActionMenu(isVisible: Boolean) {
                 icon = R.drawable.ic_money_exchange,
                 backgroundColor = Blue100
             ) {
-
+                //Todo -> Navigate to screen
             }
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -79,11 +79,11 @@ fun BoxScope.CustomFloatingActionMenu(isVisible: Boolean) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 FabItem(icon = R.drawable.ic_income, backgroundColor = Green100) {
-
+                    //Todo -> Navigate to screen
                 }
 
                 FabItem(icon = R.drawable.ic_expense, backgroundColor = Red100) {
-
+                    //Todo -> Navigate to screen
                 }
             }
         }

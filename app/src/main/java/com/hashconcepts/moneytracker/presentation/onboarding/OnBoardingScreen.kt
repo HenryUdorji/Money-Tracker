@@ -1,4 +1,4 @@
-package com.hashconcepts.moneytracker.onboarding
+package com.hashconcepts.moneytracker.presentation.onboarding
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
@@ -23,7 +23,7 @@ import com.google.accompanist.pager.rememberPagerState
 import com.hashconcepts.moneytracker.R
 import com.hashconcepts.moneytracker.common.components.CustomRaisedButton
 import com.hashconcepts.moneytracker.destinations.HomeScreenDestination
-import com.hashconcepts.moneytracker.onboarding.components.Indicators
+import com.hashconcepts.moneytracker.presentation.onboarding.components.Indicators
 import com.hashconcepts.moneytracker.ui.theme.Dark50
 import com.hashconcepts.moneytracker.ui.theme.Light100
 import com.hashconcepts.moneytracker.ui.theme.Light20

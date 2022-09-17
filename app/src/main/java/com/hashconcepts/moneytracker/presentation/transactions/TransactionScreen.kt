@@ -1,4 +1,4 @@
-package com.hashconcepts.moneytracker.budget
+package com.hashconcepts.moneytracker.presentation.transactions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,14 +20,14 @@ import com.ramcosta.composedestinations.annotation.Destination
 
 @Destination
 @Composable
-fun BudgetScreen() {
+fun TransactionScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Light100)
     ) {
         Text(
-            text = "Budget Screen", style = MaterialTheme.typography.h3, color = Dark50,
+            text = "Transaction Screen", style = MaterialTheme.typography.h3, color = Dark50,
             modifier = Modifier.align(Alignment.Center)
         )
     }

@@ -1,4 +1,4 @@
-package com.hashconcepts.moneytracker
+package com.hashconcepts.moneytracker.presentation
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,7 +9,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.getValue
@@ -22,6 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.hashconcepts.moneytracker.NavGraphs
+import com.hashconcepts.moneytracker.R
 import com.hashconcepts.moneytracker.common.components.CustomBottomNavBar
 import com.hashconcepts.moneytracker.common.components.CustomFloatingActionMenu
 import com.hashconcepts.moneytracker.destinations.*

@@ -1,4 +1,4 @@
-package com.hashconcepts.moneytracker.common.data
+package com.hashconcepts.moneytracker.data
 
 import android.content.SharedPreferences
 import com.hashconcepts.moneytracker.common.Constants

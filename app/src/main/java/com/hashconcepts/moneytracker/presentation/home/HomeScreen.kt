@@ -1,4 +1,4 @@
-package com.hashconcepts.moneytracker.transactions.addtransaction
+package com.hashconcepts.moneytracker.presentation.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,14 +20,14 @@ import com.ramcosta.composedestinations.annotation.Destination
 
 @Destination
 @Composable
-fun AddNewTransactionScreen() {
+fun HomeScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Light100)
     ) {
         Text(
-            text = "Add Transaction Screen", style = MaterialTheme.typography.h3, color = Dark50,
+            text = "Home Screen", style = MaterialTheme.typography.h3, color = Dark50,
             modifier = Modifier.align(Alignment.Center)
         )
     }
