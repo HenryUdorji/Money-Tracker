@@ -7,7 +7,6 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.dagger.hilt.android'
     id 'com.google.firebase.crashlytics'
-    id 'com.github.triplet.play' version '3.7.0'
     id 'kotlin-kapt'
 }
 
@@ -95,29 +94,6 @@ android {
             }
         }
     }
-
-    playConfigs {
-        // Enable play publishing only on the build environment for prod
-        register("release") {
-            def enablePlayPublish = System.getenv("ANDROID_PUBLISHER_CREDENTIALS") != null
-            enabled.set(enablePlayPublish)
-        }
-    }
-}
-
-import com.github.triplet.gradle.androidpublisher.ReleaseStatus
-
-play {
-    track.set("internal")
-    releaseStatus.set(ReleaseStatus.COMPLETED)
-    resolutionStrategy.set(com.github.triplet.gradle.androidpublisher.ResolutionStrategy.IGNORE)
-    updatePriority.set(4)
-    def releaseNamed =  "${android.defaultConfig.versionName}"
-    releaseName.set(releaseNamed)
-    defaultToAppBundles.set(true)
-
-    // Only enable in the build environment
-    enabled.set(false)
 }
 
 dependencies {
