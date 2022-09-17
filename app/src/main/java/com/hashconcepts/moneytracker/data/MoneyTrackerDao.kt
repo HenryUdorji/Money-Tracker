@@ -3,6 +3,7 @@ package com.hashconcepts.moneytracker.data
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.hashconcepts.moneytracker.domain.entities.Category
 
 /**
@@ -14,4 +15,7 @@ import com.hashconcepts.moneytracker.domain.entities.Category
 interface MoneyTrackerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveCategories(categories: List<Category>)
+
+    @Query("SELECT * FROM Category ORDER BY name ASC")
+    suspend fun getCategories(): List<Category>
 }

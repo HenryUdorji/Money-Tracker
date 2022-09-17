@@ -21,11 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.hashconcepts.moneytracker.NavGraphs
 import com.hashconcepts.moneytracker.R
 import com.hashconcepts.moneytracker.common.components.CustomBottomNavBar
 import com.hashconcepts.moneytracker.common.components.CustomFloatingActionMenu
-import com.hashconcepts.moneytracker.destinations.*
+import com.hashconcepts.moneytracker.presentation.destinations.BudgetScreenDestination
+import com.hashconcepts.moneytracker.presentation.destinations.HomeScreenDestination
+import com.hashconcepts.moneytracker.presentation.destinations.ProfileScreenDestination
+import com.hashconcepts.moneytracker.presentation.destinations.TransactionScreenDestination
 import com.hashconcepts.moneytracker.ui.theme.MoneyTrackerTheme
 import com.hashconcepts.moneytracker.ui.theme.Violet100
 import com.ramcosta.composedestinations.DestinationsNavHost

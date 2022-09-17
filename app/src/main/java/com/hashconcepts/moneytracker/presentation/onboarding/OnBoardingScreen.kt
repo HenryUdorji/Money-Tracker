@@ -22,7 +22,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.hashconcepts.moneytracker.R
 import com.hashconcepts.moneytracker.common.components.CustomRaisedButton
-import com.hashconcepts.moneytracker.destinations.HomeScreenDestination
+import com.hashconcepts.moneytracker.presentation.destinations.HomeScreenDestination
 import com.hashconcepts.moneytracker.presentation.onboarding.components.Indicators
 import com.hashconcepts.moneytracker.ui.theme.Dark50
 import com.hashconcepts.moneytracker.ui.theme.Light100

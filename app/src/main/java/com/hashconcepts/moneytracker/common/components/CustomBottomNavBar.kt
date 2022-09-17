@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.hashconcepts.moneytracker.R
-import com.hashconcepts.moneytracker.destinations.*
+import com.hashconcepts.moneytracker.presentation.destinations.*
 import com.hashconcepts.moneytracker.ui.theme.Light80
 import com.hashconcepts.moneytracker.ui.theme.UnSelectedColor
 import com.hashconcepts.moneytracker.ui.theme.Violet100

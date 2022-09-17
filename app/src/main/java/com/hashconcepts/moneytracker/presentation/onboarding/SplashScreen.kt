@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.hashconcepts.moneytracker.destinations.HomeScreenDestination
-import com.hashconcepts.moneytracker.destinations.OnBoardingScreenDestination
+import com.hashconcepts.moneytracker.presentation.destinations.HomeScreenDestination
+import com.hashconcepts.moneytracker.presentation.destinations.OnBoardingScreenDestination
 import com.hashconcepts.moneytracker.ui.theme.Violet100
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
