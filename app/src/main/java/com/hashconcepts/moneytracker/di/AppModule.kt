@@ -5,6 +5,9 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.work.WorkManager
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.hashconcepts.moneytracker.data.MoneyTrackerDao
 import com.hashconcepts.moneytracker.data.MoneyTrackerDatabase
 import dagger.Binds
@@ -34,8 +37,17 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRoomDatabase(@ApplicationContext context: Context): MoneyTrackerDatabase {
-        return MoneyTrackerDatabase(context)
+    fun provideWorkManager(@ApplicationContext context: Context): WorkManager {
+        return WorkManager.getInstance(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRoomDatabase(
+        @ApplicationContext context: Context,
+        workManager: WorkManager
+    ): MoneyTrackerDatabase {
+        return MoneyTrackerDatabase(context, workManager)
     }
 
     @Provides

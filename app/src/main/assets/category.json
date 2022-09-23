@@ -1,0 +1,16 @@
+[
+  {
+    "id": 0,
+    "icon": 0,
+    "name": "Rent",
+    "type": "Expense",
+    "color": 0
+  },
+  {
+    "id": 0,
+    "icon": 0,
+    "name": "Fee",
+    "type": "Expense",
+    "color": 0
+  }
+]

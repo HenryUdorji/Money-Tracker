@@ -16,5 +16,6 @@ data class Category(
     val id: Int = 0,
     val name: String,
     val icon: Int,
-    val type: TransactionType
+    val type: TransactionType,
+    val color: Int,
 )

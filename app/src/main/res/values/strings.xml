@@ -11,4 +11,7 @@
     <string name="transaction">Transaction</string>
     <string name="budget">Budget</string>
     <string name="profile">Profile</string>
+    <string name="account_balance">Account Balance</string>
+    <string name="expenses">Expenses</string>
+    <string name="income">Income</string>
 </resources>

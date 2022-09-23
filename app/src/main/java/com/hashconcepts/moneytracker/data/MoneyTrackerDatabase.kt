@@ -6,10 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.hashconcepts.moneytracker.domain.entities.Category
+import com.hashconcepts.moneytracker.workers.SeedCategoryWorker
 import kotlinx.coroutines.*
 import kotlinx.coroutines.internal.synchronized
-import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * @created 17/09/2022 - 8:52 PM
@@ -19,20 +22,20 @@ import timber.log.Timber
 @Database(
     entities = [
         Category::class,
-               ],
+    ],
     exportSchema = true,
     version = 1
 )
 @TypeConverters(MoneyTrackerConverter::class)
-abstract class MoneyTrackerDatabase: RoomDatabase() {
+abstract class MoneyTrackerDatabase : RoomDatabase() {
 
     abstract fun moneyTrackerDao(): MoneyTrackerDao
 
     companion object {
         lateinit var moneyTrackerDatabase: MoneyTrackerDatabase
 
-        @OptIn(InternalCoroutinesApi::class, DelicateCoroutinesApi::class)
-        operator fun invoke(context: Context): MoneyTrackerDatabase {
+        @OptIn(InternalCoroutinesApi::class)
+        operator fun invoke(context: Context, workManager: WorkManager): MoneyTrackerDatabase {
             if (!this::moneyTrackerDatabase.isInitialized) {
                 synchronized(this) {
                     if (!this::moneyTrackerDatabase.isInitialized) {
@@ -45,13 +48,9 @@ abstract class MoneyTrackerDatabase: RoomDatabase() {
                                 override fun onCreate(db: SupportSQLiteDatabase) {
                                     super.onCreate(db)
                                     //Save Categories
-                                    GlobalScope.launch(Dispatchers.IO) {
-                                        try {
-                                            moneyTrackerDatabase.moneyTrackerDao().saveCategories(CategoryData.categories)
-                                        } catch (e: Exception) {
-                                            Timber.e(e.localizedMessage)
-                                        }
-                                    }
+                                    val workRequest =
+                                        OneTimeWorkRequestBuilder<SeedCategoryWorker>().build()
+                                    workManager.enqueue(workRequest)
                                 }
                             })
                             .fallbackToDestructiveMigrationOnDowngrade()

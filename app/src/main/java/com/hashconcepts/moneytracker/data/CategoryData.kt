@@ -10,10 +10,10 @@ import com.hashconcepts.moneytracker.domain.entities.TransactionType
  */
 object CategoryData {
     val categories = listOf(
-        Category(icon = 0, name = "Rent", type = TransactionType.Expense),
-        Category(icon = 0, name = "Fee", type = TransactionType.Expense),
-        Category(icon = 0, name = "Tax", type = TransactionType.Expense),
-        Category(icon = 0, name = "Insurance", type = TransactionType.Expense),
-        Category(icon = 0, name = "Education", type = TransactionType.Expense),
+        Category(icon = 0, name = "Rent", type = TransactionType.Expense, color = 0),
+        Category(icon = 0, name = "Fee", type = TransactionType.Expense, color = 0),
+        Category(icon = 0, name = "Tax", type = TransactionType.Expense, color = 0),
+        Category(icon = 0, name = "Insurance", type = TransactionType.Expense, color = 0),
+        Category(icon = 0, name = "Education", type = TransactionType.Expense, color = 0),
     )
 }

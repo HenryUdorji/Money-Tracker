@@ -171,4 +171,12 @@ dependencies {
 
     //Play core
     implementation 'com.google.android.play:core:1.10.3'
+
+    // Kotlin + coroutines
+    def work_version = "2.7.1"
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    androidTestImplementation "androidx.work:work-testing:$work_version"
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.9.1'
 }
