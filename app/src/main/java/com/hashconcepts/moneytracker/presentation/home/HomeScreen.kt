@@ -20,6 +20,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hashconcepts.moneytracker.R
+import com.hashconcepts.moneytracker.common.formatAmount
+import com.hashconcepts.moneytracker.common.formatAmountWithCurrency
 import com.hashconcepts.moneytracker.ui.theme.*
 import com.ramcosta.composedestinations.annotation.Destination
 
@@ -126,7 +128,7 @@ fun TransactionBalance() {
             icon = R.drawable.ic_income,
             color = Green100,
             label = stringResource(R.string.income),
-            amount = "$5000"
+            amount = "5000".formatAmountWithCurrency()
         )
 
         TransactionBalanceItem(
@@ -136,7 +138,7 @@ fun TransactionBalance() {
             icon = R.drawable.ic_expense,
             color = Red100,
             label = stringResource(R.string.expenses),
-            amount = "$1200"
+            amount = "1200".formatAmountWithCurrency()
         )
     }
 }
@@ -200,7 +202,7 @@ fun ColumnScope.AccountBalance() {
     )
 
     Text(
-        text = "$300000",
+        text = "300000".formatAmountWithCurrency(),
         style = MaterialTheme.typography.h1,
         color = Dark75,
         fontSize = 40.sp,

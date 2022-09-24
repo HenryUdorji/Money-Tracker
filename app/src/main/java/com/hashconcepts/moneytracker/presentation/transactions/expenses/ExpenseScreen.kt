@@ -1,9 +1,5 @@
 package com.hashconcepts.moneytracker.presentation.transactions.expenses
 
-import android.app.DatePickerDialog
-import android.widget.DatePicker
-import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,7 +25,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.util.*
 
 /**
@@ -64,7 +59,7 @@ fun ExpenseScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        FormFieldSection(bottomSheetState, coroutineScope)
+        FormFieldSection(bottomSheetState, coroutineScope, viewModel)
     }
 
     FilePickerBottomSheetDialog(
@@ -91,7 +86,8 @@ fun ExpenseScreen(
 @Composable
 fun ColumnScope.FormFieldSection(
     bottomSheetState: ModalBottomSheetState,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
+    viewModel: ExpenseViewModel
 ) {
     Column(
         modifier = Modifier
@@ -134,15 +130,19 @@ fun ColumnScope.FormFieldSection(
         Spacer(modifier = Modifier.height(16.dp))
 
         val context = LocalContext.current as AppCompatActivity
+        val date = remember { mutableStateOf(viewModel.todayDate) }
+        val time = remember { mutableStateOf(viewModel.currentTime) }
         CustomDateTimeField(
+            date = date.value,
+            time = time.value,
             onDateClicked = {
                 context.showDatePickerDialog {
-                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                    date.value = it!!
                 }
             },
             onTimeClicked = {
                 context.showTimePickerDialog {
-                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                    time.value = it!!
                 }
             }
         )

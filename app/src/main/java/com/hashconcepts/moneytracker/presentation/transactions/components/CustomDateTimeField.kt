@@ -23,6 +23,8 @@ import com.hashconcepts.moneytracker.ui.theme.Light20
 
 @Composable
 fun CustomDateTimeField(
+    date: String,
+    time: String,
     onDateClicked: () -> Unit,
     onTimeClicked: () -> Unit,
 ) {
@@ -46,7 +48,7 @@ fun CustomDateTimeField(
                 .clickable { onDateClicked() }
         ) {
             Text(
-                text = "Sep 24, 2022",
+                text = date,
                 style = MaterialTheme.typography.h6,
                 fontSize = 18.sp,
                 color = Dark100,
@@ -71,7 +73,7 @@ fun CustomDateTimeField(
                 .clickable { onTimeClicked() }
         ) {
             Text(
-                text = "2:46 AM",
+                text = time,
                 style = MaterialTheme.typography.h6,
                 fontSize = 18.sp,
                 color = Dark100,

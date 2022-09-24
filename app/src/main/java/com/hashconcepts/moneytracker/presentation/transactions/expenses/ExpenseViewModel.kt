@@ -14,4 +14,6 @@ import java.util.*
 //@HiltViewModel
 class ExpenseViewModel: ViewModel() {
     val currencySymbol = UtilMethods.fetchCurrency(Locale.UK)
+    val todayDate = UtilMethods.getTodayDate(System.currentTimeMillis())
+    val currentTime = UtilMethods.getCurrentTime(System.currentTimeMillis())
 }

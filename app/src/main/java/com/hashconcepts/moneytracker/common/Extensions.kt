@@ -3,8 +3,7 @@ package com.hashconcepts.moneytracker.common
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
-import java.text.SimpleDateFormat
-import java.util.*
+import com.hashconcepts.moneytracker.common.UtilMethods.dateFormatter
 
 /**
  * @created 24/09/2022 - 9:21 AM
@@ -63,12 +62,10 @@ fun AppCompatActivity.showTimePickerDialog(onTimePicked: (String?) -> Unit) {
     }
 }
 
-fun dateFormatter(milliseconds : Long?) : String?{
-    milliseconds?.let{
-        val formatter = SimpleDateFormat("MMM dd, yyyy", Locale.US)
-        val calendar: Calendar = Calendar.getInstance()
-        calendar.timeInMillis = it
-        return formatter.format(calendar.time)
-    }
-    return null
+fun String.formatAmount(): String {
+    return String.format("%1$,.0f", this.toDouble())
+}
+
+fun String.formatAmountWithCurrency(): String {
+    return "$"+this.formatAmount()
 }
