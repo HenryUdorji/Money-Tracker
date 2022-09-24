@@ -21,10 +21,45 @@ fun AppCompatActivity.showDatePickerDialog(onDatePicked: (String?) -> Unit) {
 }
 
 fun AppCompatActivity.showTimePickerDialog(onTimePicked: (String?) -> Unit) {
-    val timePicker = MaterialTimePicker.Builder().build()
-    timePicker.show(this.supportFragmentManager, timePicker.toString())
-    timePicker.addOnPositiveButtonClickListener {
+    val materialTimePicker = MaterialTimePicker.Builder().build()
+    materialTimePicker.show(this.supportFragmentManager, materialTimePicker.toString())
+    materialTimePicker.addOnPositiveButtonClickListener {
+        val pickedHour: Int = materialTimePicker.hour
+        val pickedMinute: Int = materialTimePicker.minute
 
+        // check for single digit hour hour and minute
+        // and update TextView accordingly
+        val formattedTime: String = when {
+            pickedHour > 12 -> {
+                if (pickedMinute < 10) {
+                    "${materialTimePicker.hour - 12}:0${materialTimePicker.minute} PM"
+                } else {
+                    "${materialTimePicker.hour - 12}:${materialTimePicker.minute} PM"
+                }
+            }
+            pickedHour == 12 -> {
+                if (pickedMinute < 10) {
+                    "${materialTimePicker.hour}:0${materialTimePicker.minute} PM"
+                } else {
+                    "${materialTimePicker.hour}:${materialTimePicker.minute} PM"
+                }
+            }
+            pickedHour == 0 -> {
+                if (pickedMinute < 10) {
+                    "${materialTimePicker.hour + 12}:0${materialTimePicker.minute} AM"
+                } else {
+                    "${materialTimePicker.hour + 12}:${materialTimePicker.minute} AM"
+                }
+            }
+            else -> {
+                if (pickedMinute < 10) {
+                    "${materialTimePicker.hour}:0${materialTimePicker.minute} AM"
+                } else {
+                    "${materialTimePicker.hour}:${materialTimePicker.minute} AM"
+                }
+            }
+        }
+        onTimePicked(formattedTime)
     }
 }
 

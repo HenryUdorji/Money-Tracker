@@ -142,7 +142,7 @@ fun ColumnScope.FormFieldSection(
             },
             onTimeClicked = {
                 context.showTimePickerDialog {
-
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                 }
             }
         )
