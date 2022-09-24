@@ -1,5 +1,10 @@
 package com.hashconcepts.moneytracker.presentation.transactions.expenses
 
+import android.app.DatePickerDialog
+import android.widget.DatePicker
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,18 +14,23 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hashconcepts.moneytracker.R
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hashconcepts.moneytracker.common.components.*
+import com.hashconcepts.moneytracker.common.showDatePickerDialog
+import com.hashconcepts.moneytracker.common.showTimePickerDialog
 import com.hashconcepts.moneytracker.presentation.transactions.components.*
 import com.hashconcepts.moneytracker.ui.theme.*
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.util.*
 
 /**
  * @created 23/09/2022 - 6:23 PM
@@ -60,9 +70,9 @@ fun ExpenseScreen(
     FilePickerBottomSheetDialog(
         bottomSheetState = bottomSheetState,
         onCameraClicked = {
-                          coroutineScope.launch {
-                              bottomSheetState.hide()
-                          }
+            coroutineScope.launch {
+                bottomSheetState.hide()
+            }
         },
         onGalleryClicked = {
             coroutineScope.launch {
@@ -123,12 +133,17 @@ fun ColumnScope.FormFieldSection(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        val context = LocalContext.current as AppCompatActivity
         CustomDateTimeField(
             onDateClicked = {
-
+                context.showDatePickerDialog {
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                }
             },
             onTimeClicked = {
+                context.showTimePickerDialog {
 
+                }
             }
         )
 
