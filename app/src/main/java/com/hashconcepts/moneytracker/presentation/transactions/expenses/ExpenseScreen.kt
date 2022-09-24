@@ -1,12 +1,12 @@
 package com.hashconcepts.moneytracker.presentation.transactions.expenses
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -15,10 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.hashconcepts.moneytracker.R
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hashconcepts.moneytracker.common.components.*
-import com.hashconcepts.moneytracker.presentation.transactions.components.CustomDashBorderField
-import com.hashconcepts.moneytracker.presentation.transactions.components.CustomDateTimeField
-import com.hashconcepts.moneytracker.presentation.transactions.components.CustomDropDown
-import com.hashconcepts.moneytracker.presentation.transactions.components.EnterAmountComponent
+import com.hashconcepts.moneytracker.presentation.transactions.components.*
 import com.hashconcepts.moneytracker.ui.theme.*
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -29,6 +26,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
  * @author  ifechukwu.udorji
  */
 
+@OptIn(ExperimentalMaterialApi::class)
 @Destination
 @Composable
 fun ExpenseScreen(
@@ -50,12 +48,25 @@ fun ExpenseScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        FormFieldSection()
+        val bottomSheetState =
+            rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded)
+        val showAddAttachmentBottomSheet = remember { mutableStateOf(false) }
+        FormFieldSection(showAddAttachmentBottomSheet)
+
+        if (showAddAttachmentBottomSheet.value) {
+            FilePickerBottomSheetDialog(
+                bottomSheetState = bottomSheetState,
+                onCameraClicked = { /*TODO*/ },
+                onGalleryClicked = { /*TODO*/ },
+                onDocumentClicked = { /*TODO*/ }
+            )
+        }
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ColumnScope.FormFieldSection() {
+fun ColumnScope.FormFieldSection(showAddAttachmentBottomSheet: MutableState<Boolean>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -85,7 +96,13 @@ fun ColumnScope.FormFieldSection() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        CustomDashBorderField(modifier = Modifier.fillMaxWidth())
+
+        CustomDottedBorderField(modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                showAddAttachmentBottomSheet.value = !showAddAttachmentBottomSheet.value
+            }
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 

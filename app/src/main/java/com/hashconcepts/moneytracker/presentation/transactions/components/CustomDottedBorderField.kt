@@ -25,7 +25,7 @@ import com.hashconcepts.moneytracker.ui.theme.Light20
  */
 
 @Composable
-fun CustomDashBorderField(
+fun CustomDottedBorderField(
     modifier: Modifier = Modifier
 ) {
     val stroke =
