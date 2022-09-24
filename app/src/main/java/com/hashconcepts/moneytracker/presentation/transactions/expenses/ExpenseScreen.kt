@@ -19,6 +19,8 @@ import com.hashconcepts.moneytracker.presentation.transactions.components.*
 import com.hashconcepts.moneytracker.ui.theme.*
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 /**
  * @created 23/09/2022 - 6:23 PM
@@ -33,6 +35,10 @@ fun ExpenseScreen(
     navigator: DestinationsNavigator,
     viewModel: ExpenseViewModel = hiltViewModel()
 ) {
+    val bottomSheetState =
+        rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    val coroutineScope = rememberCoroutineScope()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,25 +54,35 @@ fun ExpenseScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        val bottomSheetState =
-            rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded)
-        val showAddAttachmentBottomSheet = remember { mutableStateOf(false) }
-        FormFieldSection(showAddAttachmentBottomSheet)
-
-        if (showAddAttachmentBottomSheet.value) {
-            FilePickerBottomSheetDialog(
-                bottomSheetState = bottomSheetState,
-                onCameraClicked = { /*TODO*/ },
-                onGalleryClicked = { /*TODO*/ },
-                onDocumentClicked = { /*TODO*/ }
-            )
-        }
+        FormFieldSection(bottomSheetState, coroutineScope)
     }
+
+    FilePickerBottomSheetDialog(
+        bottomSheetState = bottomSheetState,
+        onCameraClicked = {
+                          coroutineScope.launch {
+                              bottomSheetState.hide()
+                          }
+        },
+        onGalleryClicked = {
+            coroutineScope.launch {
+                bottomSheetState.hide()
+            }
+        },
+        onDocumentClicked = {
+            coroutineScope.launch {
+                bottomSheetState.hide()
+            }
+        }
+    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ColumnScope.FormFieldSection(showAddAttachmentBottomSheet: MutableState<Boolean>) {
+fun ColumnScope.FormFieldSection(
+    bottomSheetState: ModalBottomSheetState,
+    coroutineScope: CoroutineScope
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -96,11 +112,12 @@ fun ColumnScope.FormFieldSection(showAddAttachmentBottomSheet: MutableState<Bool
 
         Spacer(modifier = Modifier.height(16.dp))
 
-
         CustomDottedBorderField(modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                showAddAttachmentBottomSheet.value = !showAddAttachmentBottomSheet.value
+                coroutineScope.launch {
+                    bottomSheetState.show()
+                }
             }
         )
 

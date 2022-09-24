@@ -37,6 +37,8 @@ fun FilePickerBottomSheetDialog(
         sheetState = bottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
         sheetBackgroundColor = Light100,
+        sheetElevation = 20.dp,
+        scrimColor = Violet20.copy(alpha = 0.5f),
         sheetContent = {
             SheetContent(
                 onCameraClicked = { onCameraClicked() },
