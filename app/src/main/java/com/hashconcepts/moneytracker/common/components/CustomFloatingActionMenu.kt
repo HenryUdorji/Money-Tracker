@@ -29,11 +29,16 @@ import com.hashconcepts.moneytracker.ui.theme.*
  * @project Money Tracker
  * @author  ifechukwu.udorji
  */
-private const val duration: Int = 1000
+private const val duration: Int = 800
 private val intOffsetTweenSpec: TweenSpec<IntOffset> = tween(durationMillis = duration)
 
 @Composable
-fun BoxScope.CustomFloatingActionMenu(isVisible: Boolean) {
+fun BoxScope.CustomFloatingActionMenu(
+    isVisible: Boolean,
+    onExpensesClicked: () -> Unit,
+    onIncomeClicked: () -> Unit,
+    onTransferClicked: () -> Unit,
+) {
     val density = LocalDensity.current
 
     AnimatedVisibility(
@@ -68,9 +73,7 @@ fun BoxScope.CustomFloatingActionMenu(isVisible: Boolean) {
             FabItem(
                 icon = R.drawable.ic_money_exchange,
                 backgroundColor = Blue100
-            ) {
-                //Todo -> Navigate to screen
-            }
+            ) { onTransferClicked() }
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -78,13 +81,9 @@ fun BoxScope.CustomFloatingActionMenu(isVisible: Boolean) {
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                FabItem(icon = R.drawable.ic_income, backgroundColor = Green100) {
-                    //Todo -> Navigate to screen
-                }
+                FabItem(icon = R.drawable.ic_income, backgroundColor = Green100) { onIncomeClicked() }
 
-                FabItem(icon = R.drawable.ic_expense, backgroundColor = Red100) {
-                    //Todo -> Navigate to screen
-                }
+                FabItem(icon = R.drawable.ic_expense, backgroundColor = Red100) { onExpensesClicked() }
             }
         }
     }

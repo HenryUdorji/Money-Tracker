@@ -55,7 +55,7 @@ fun TopSection() {
             )
             .padding(horizontal = 15.dp)
     ) {
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(40.dp))
 
         Row(
             horizontalArrangement = Arrangement.SpaceAround,

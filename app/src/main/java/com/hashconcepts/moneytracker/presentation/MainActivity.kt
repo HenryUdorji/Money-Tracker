@@ -25,10 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.hashconcepts.moneytracker.R
 import com.hashconcepts.moneytracker.common.components.CustomBottomNavBar
 import com.hashconcepts.moneytracker.common.components.CustomFloatingActionMenu
-import com.hashconcepts.moneytracker.presentation.destinations.BudgetScreenDestination
-import com.hashconcepts.moneytracker.presentation.destinations.HomeScreenDestination
-import com.hashconcepts.moneytracker.presentation.destinations.ProfileScreenDestination
-import com.hashconcepts.moneytracker.presentation.destinations.TransactionScreenDestination
+import com.hashconcepts.moneytracker.presentation.destinations.*
 import com.hashconcepts.moneytracker.ui.theme.MoneyTrackerTheme
 import com.hashconcepts.moneytracker.ui.theme.Violet100
 import com.ramcosta.composedestinations.DestinationsNavHost
@@ -96,7 +93,21 @@ class MainActivity : ComponentActivity() {
                     )
 
                     Box(modifier = Modifier.fillMaxSize()) {
-                        CustomFloatingActionMenu(isVisible = isVisible)
+                        CustomFloatingActionMenu(
+                            isVisible = isVisible,
+                            onExpensesClicked = {
+                                isVisible = !isVisible
+                                navController.navigate(ExpenseScreenDestination.route)
+                            },
+                            onIncomeClicked = {
+                                isVisible = !isVisible
+                                navController.navigate(IncomeScreenDestination.route)
+                            },
+                            onTransferClicked = {
+                                isVisible = !isVisible
+                                navController.navigate(TransferScreenDestination.route)
+                            },
+                        )
                     }
                 }
             }

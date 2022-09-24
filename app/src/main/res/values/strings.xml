@@ -14,4 +14,10 @@
     <string name="account_balance">Account Balance</string>
     <string name="expenses">Expenses</string>
     <string name="income">Income</string>
+    <string name="transfer">Transfer</string>
+    <string name="how_much">How much?</string>
+    <string name="description">Description</string>
+    <string name="category">Category</string>
+    <string name="wallet">Wallet</string>
+    <string name="add_attachment">Add attachment</string>
 </resources>
