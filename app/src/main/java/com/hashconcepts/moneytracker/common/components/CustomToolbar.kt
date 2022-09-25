@@ -53,12 +53,10 @@ fun CustomToolbar(
                 .weight(1f)
         )
 
-        IconButton(onClick = { onBackClicked() }) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_back_arrow),
-                contentDescription = null,
-                tint = Color.Transparent
-            )
-        }
+        Icon(
+            painter = painterResource(id = R.drawable.ic_back_arrow),
+            contentDescription = null,
+            tint = Color.Transparent
+        )
     }
 }

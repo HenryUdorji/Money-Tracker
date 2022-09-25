@@ -19,13 +19,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.hashconcepts.moneytracker.common.components.*
 import com.hashconcepts.moneytracker.common.showDatePickerDialog
 import com.hashconcepts.moneytracker.common.showTimePickerDialog
+import com.hashconcepts.moneytracker.data.CategoryData
 import com.hashconcepts.moneytracker.presentation.transactions.components.*
 import com.hashconcepts.moneytracker.ui.theme.*
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.util.*
 
 /**
  * @created 23/09/2022 - 6:23 PM
@@ -41,6 +41,8 @@ fun ExpenseScreen(
     viewModel: ExpenseViewModel = hiltViewModel()
 ) {
     val bottomSheetState =
+        rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    val dropDownSheetState =
         rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
 
@@ -59,7 +61,7 @@ fun ExpenseScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        FormFieldSection(bottomSheetState, coroutineScope, viewModel)
+        FormFieldSection(bottomSheetState, dropDownSheetState, coroutineScope, viewModel)
     }
 
     FilePickerBottomSheetDialog(
@@ -80,12 +82,18 @@ fun ExpenseScreen(
             }
         }
     )
+
+    DropDownBottomSheet(
+        bottomSheetState = dropDownSheetState,
+        dropDownItems = CategoryData.categories
+    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ColumnScope.FormFieldSection(
     bottomSheetState: ModalBottomSheetState,
+    dropDownSheetState: ModalBottomSheetState,
     coroutineScope: CoroutineScope,
     viewModel: ExpenseViewModel
 ) {
@@ -100,7 +108,16 @@ fun ColumnScope.FormFieldSection(
             .padding(vertical = 24.dp, horizontal = 16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        CustomDropDown(label = stringResource(R.string.category))
+        CustomDropDown(
+            hint = stringResource(R.string.category),
+            label = "Subscription",
+            tint = Green100,
+            onDropDownClicked = {
+                coroutineScope.launch {
+                    dropDownSheetState.show()
+                }
+            }
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -114,7 +131,16 @@ fun ColumnScope.FormFieldSection(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        CustomDropDown(label = stringResource(R.string.wallet))
+        CustomDropDown(
+            hint = stringResource(R.string.wallet),
+            label = "Paypal",
+            tint = Blue100,
+            onDropDownClicked = {
+                coroutineScope.launch {
+                    dropDownSheetState.show()
+                }
+            }
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 

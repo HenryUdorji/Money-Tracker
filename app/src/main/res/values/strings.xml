@@ -23,4 +23,6 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="document">Document</string>
+    <string name="add_new_category">ADD NEW CATEGORY</string>
+    <string name="select_a_category">Select a category</string>
 </resources>

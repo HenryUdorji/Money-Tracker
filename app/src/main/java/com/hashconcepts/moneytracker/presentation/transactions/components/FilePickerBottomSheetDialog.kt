@@ -14,10 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.hashconcepts.moneytracker.R
-import com.hashconcepts.moneytracker.ui.theme.Light100
-import com.hashconcepts.moneytracker.ui.theme.Violet100
-import com.hashconcepts.moneytracker.ui.theme.Violet20
-import com.hashconcepts.moneytracker.ui.theme.Violet40
+import com.hashconcepts.moneytracker.ui.theme.*
 
 /**
  * @created 31/07/2022 - 10:42 PM
@@ -38,7 +35,7 @@ fun FilePickerBottomSheetDialog(
         sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
         sheetBackgroundColor = Light100,
         sheetElevation = 20.dp,
-        scrimColor = Violet20.copy(alpha = 0.5f),
+        scrimColor = Light20.copy(alpha = 0.2f),
         sheetContent = {
             SheetContent(
                 onCameraClicked = { onCameraClicked() },
