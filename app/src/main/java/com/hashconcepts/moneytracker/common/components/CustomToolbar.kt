@@ -38,7 +38,8 @@ fun CustomToolbar(
         IconButton(onClick = { onBackClicked() }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_back_arrow),
-                contentDescription = null
+                contentDescription = null,
+                tint = Color.Unspecified,
             )
         }
 

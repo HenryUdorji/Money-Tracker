@@ -17,6 +17,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hashconcepts.moneytracker.ui.theme.Dark100
+import com.hashconcepts.moneytracker.ui.theme.Light100
 import com.hashconcepts.moneytracker.ui.theme.Light20
 
 /**
@@ -64,6 +65,7 @@ fun CustomTextField(
             unfocusedIndicatorColor = Color.Transparent,
             cursorColor = Light20,
             textColor = Dark100,
+            backgroundColor = Light100,
         ),
         textStyle = MaterialTheme.typography.body2
     )

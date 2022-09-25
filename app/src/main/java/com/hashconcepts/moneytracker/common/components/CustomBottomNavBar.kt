@@ -87,7 +87,8 @@ fun CustomBottomNavBar(
                         Text(
                             text = stringResource(id = label),
                             style = MaterialTheme.typography.h5,
-                            fontSize = 10.sp
+                            fontSize = 10.sp,
+                            maxLines = 1
                         )
                     }
                 },
