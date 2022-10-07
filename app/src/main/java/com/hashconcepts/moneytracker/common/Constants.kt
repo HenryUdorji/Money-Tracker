@@ -7,4 +7,7 @@ package com.hashconcepts.moneytracker.common
  */
 object Constants {
     const val FIRST_APP_LAUNCH = "FIRST_APP_LAUNCH"
+    const val FILE_PICKER_OPTION_CAMERA = "CAMERA"
+    const val FILE_PICKER_OPTION_GALLERY = "GALLERY"
+    const val FILE_PICKER_OPTION_DOCUMENT = "DOCUMENT"
 }

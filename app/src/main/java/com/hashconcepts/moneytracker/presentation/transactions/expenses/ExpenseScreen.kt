@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hashconcepts.moneytracker.R
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.hashconcepts.moneytracker.common.Constants
 import com.hashconcepts.moneytracker.common.components.*
 import com.hashconcepts.moneytracker.common.showDatePickerDialog
 import com.hashconcepts.moneytracker.common.showTimePickerDialog
@@ -26,6 +27,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * @created 23/09/2022 - 6:23 PM
@@ -64,19 +66,23 @@ fun ExpenseScreen(
         FormFieldSection(bottomSheetState, dropDownSheetState, coroutineScope, viewModel)
     }
 
+    var filePickerOption by remember { mutableStateOf("") }
     FilePickerBottomSheetDialog(
         bottomSheetState = bottomSheetState,
         onCameraClicked = {
+            filePickerOption = Constants.FILE_PICKER_OPTION_CAMERA
             coroutineScope.launch {
                 bottomSheetState.hide()
             }
         },
         onGalleryClicked = {
+            filePickerOption = Constants.FILE_PICKER_OPTION_GALLERY
             coroutineScope.launch {
                 bottomSheetState.hide()
             }
         },
         onDocumentClicked = {
+            filePickerOption = Constants.FILE_PICKER_OPTION_DOCUMENT
             coroutineScope.launch {
                 bottomSheetState.hide()
             }
@@ -86,7 +92,15 @@ fun ExpenseScreen(
     DropDownBottomSheet(
         bottomSheetState = dropDownSheetState,
         dropDownItems = CategoryData.categories
-    )
+    ) {
+        //TODO -> SHOW DIALOG TO CREATE CATEGORY
+    }
+
+    if (filePickerOption.isNotEmpty()) {
+        FilePickerPermissionChecker(filePickerOption) {
+            Timber.d("FILE URI -> $it")
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterialApi::class)

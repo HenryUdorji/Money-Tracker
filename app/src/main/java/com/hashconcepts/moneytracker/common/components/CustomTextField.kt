@@ -65,7 +65,7 @@ fun CustomTextField(
             unfocusedIndicatorColor = Color.Transparent,
             cursorColor = Light20,
             textColor = Dark100,
-            backgroundColor = Light100,
+            backgroundColor = Color.Transparent,
         ),
         textStyle = MaterialTheme.typography.body2
     )

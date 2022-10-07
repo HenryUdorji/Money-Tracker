@@ -3,6 +3,7 @@ package com.hashconcepts.moneytracker.presentation.transactions.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -35,7 +36,8 @@ import com.hashconcepts.moneytracker.ui.theme.Light20
 @Composable
 fun DropDownBottomSheet(
     bottomSheetState: ModalBottomSheetState,
-    dropDownItems: List<Category>
+    dropDownItems: List<Category>,
+    onAddNewCategoryClicked: () -> Unit,
 ) {
     ModalBottomSheetLayout(
         sheetState = bottomSheetState,
@@ -44,13 +46,16 @@ fun DropDownBottomSheet(
         sheetElevation = 20.dp,
         scrimColor = Light20.copy(alpha = 0.2f),
         sheetContent = {
-            SheetContent(dropDownItems)
+            SheetContent(dropDownItems, onAddNewCategoryClicked)
         }
     ) {}
 }
 
 @Composable
-fun SheetContent(dropDownItems: List<Category>) {
+fun SheetContent(
+    dropDownItems: List<Category>,
+    onAddNewCategoryClicked: () -> Unit,
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -85,6 +90,7 @@ fun SheetContent(dropDownItems: List<Category>) {
                 .height(56.dp)
                 .border(width = 1.dp, color = Light20, shape = RoundedCornerShape(5.dp))
                 .padding(horizontal = 10.dp)
+                .clickable { onAddNewCategoryClicked() }
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_add_circle),
