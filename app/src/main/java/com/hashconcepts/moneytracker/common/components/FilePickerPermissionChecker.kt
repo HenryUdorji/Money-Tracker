@@ -19,6 +19,7 @@ import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import com.hashconcepts.moneytracker.R
 import com.hashconcepts.moneytracker.common.Constants
+import com.hashconcepts.moneytracker.common.UtilMethods
 import timber.log.Timber
 import java.io.File
 
@@ -116,7 +117,7 @@ fun FilePickerPermissionChecker(
         Constants.FILE_PICKER_OPTION_DOCUMENT -> {
             if (storagePermission.status.isGranted) {
                 SideEffect {
-                    documentLauncher.launch(arrayOf("*/*"))
+                    documentLauncher.launch(UtilMethods.provideDocumentMimeTypes())
                 }
             } else if (storagePermission.status.shouldShowRationale) {
                 showPermissionRationale.value = showPermissionRationale.value.copy(

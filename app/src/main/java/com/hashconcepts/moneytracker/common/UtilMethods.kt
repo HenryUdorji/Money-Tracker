@@ -38,4 +38,21 @@ object UtilMethods {
     fun getCurrentTime(milliseconds: Long): String {
         return timeFormatter(milliseconds)
     }
+
+    fun provideDocumentMimeTypes(): Array<String> {
+        return arrayOf(
+            "image/*",
+            "application/pdf",
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "application/vnd.ms-excel",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.ms-powerpoint",
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.template",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.template",
+            "application/vnd.openxmlformats-officedocument.presentationml.template",
+            "application/vnd.openxmlformats-officedocument.presentationml.slideshow"
+        )
+    }
 }
