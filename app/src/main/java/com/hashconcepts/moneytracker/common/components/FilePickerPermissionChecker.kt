@@ -11,6 +11,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.core.content.FileProvider
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -32,6 +33,7 @@ import java.io.File
 fun FilePickerPermissionChecker(
     filePickerOption: String,
     onFilePickerLaunchResult: (Uri?) -> Unit,
+    onFilePickerLaunchResultList: (List<Uri?>) -> Unit,
 ) {
     val storagePermission = rememberPermissionState(permission = Manifest.permission.READ_EXTERNAL_STORAGE)
     val cameraPermission = rememberPermissionState(permission = Manifest.permission.CAMERA)
@@ -41,10 +43,10 @@ fun FilePickerPermissionChecker(
 
 
     val galleryLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent(),
+        contract = ActivityResultContracts.GetMultipleContents(),
         onResult = { uri ->
             run {
-                onFilePickerLaunchResult(uri)
+                onFilePickerLaunchResultList(uri)
             }
         }
     )
@@ -61,11 +63,11 @@ fun FilePickerPermissionChecker(
     )
 
     val documentLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.OpenDocumentTree(),
+        contract = ActivityResultContracts.OpenMultipleDocuments(),
         onResult = { documentUri ->
             run {
-                documentUri?.let {
-                    onFilePickerLaunchResult(it)
+                if (documentUri.isNotEmpty()) {
+                    onFilePickerLaunchResultList(documentUri)
                 }
             }
         }
@@ -83,7 +85,7 @@ fun FilePickerPermissionChecker(
             } else if (cameraPermission.status.shouldShowRationale) {
                 showPermissionRationale.value = showPermissionRationale.value.copy(
                     showDialog = true,
-                    message = "Money Tracker Requires this Camera permission to access your phones Camera.",
+                    message = stringResource(R.string.camera_permission_info),
                     icon = R.drawable.ic_camera,
                     permission = Constants.FILE_PICKER_OPTION_CAMERA
                 )
@@ -101,7 +103,7 @@ fun FilePickerPermissionChecker(
             } else if (storagePermission.status.shouldShowRationale) {
                 showPermissionRationale.value = showPermissionRationale.value.copy(
                     showDialog = true,
-                    message = "Money Tracker Requires this Storage permission to access images in your phones Gallery.",
+                    message = stringResource(R.string.storage_permission_info),
                     icon = R.drawable.ic_gallery,
                     permission = Constants.FILE_PICKER_OPTION_GALLERY
                 )
@@ -114,12 +116,12 @@ fun FilePickerPermissionChecker(
         Constants.FILE_PICKER_OPTION_DOCUMENT -> {
             if (storagePermission.status.isGranted) {
                 SideEffect {
-                    documentLauncher.launch(null)
+                    documentLauncher.launch(arrayOf("*/*"))
                 }
             } else if (storagePermission.status.shouldShowRationale) {
                 showPermissionRationale.value = showPermissionRationale.value.copy(
                     showDialog = true,
-                    message = "Money Tracker Requires this Storage permission to access document in your phones Gallery.",
+                    message = stringResource(id = R.string.document_permission_info),
                     icon = R.drawable.ic_file,
                     permission = Constants.FILE_PICKER_OPTION_DOCUMENT
                 )

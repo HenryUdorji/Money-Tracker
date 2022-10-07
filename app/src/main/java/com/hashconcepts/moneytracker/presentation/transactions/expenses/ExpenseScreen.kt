@@ -97,9 +97,15 @@ fun ExpenseScreen(
     }
 
     if (filePickerOption.isNotEmpty()) {
-        FilePickerPermissionChecker(filePickerOption) {
-            Timber.d("FILE URI -> $it")
-        }
+        FilePickerPermissionChecker(
+            filePickerOption = filePickerOption,
+            onFilePickerLaunchResult = {
+                Timber.d("FILE URI -> $it")
+            },
+            onFilePickerLaunchResultList = {
+                Timber.d("FILE URI -> $it")
+            }
+        )
     }
 }
 

@@ -25,4 +25,7 @@
     <string name="document">Document</string>
     <string name="add_new_category">ADD NEW CATEGORY</string>
     <string name="select_a_category">Select a category</string>
+    <string name="camera_permission_info">Money Tracker Requires this Camera permission to access your phones Camera.</string>
+    <string name="storage_permission_info">Money Tracker Requires this Storage permission to access images in your phones Gallery.</string>
+    <string name="document_permission_info">Money Tracker Requires this Storage permission to access images in your phones Document.</string>
 </resources>
