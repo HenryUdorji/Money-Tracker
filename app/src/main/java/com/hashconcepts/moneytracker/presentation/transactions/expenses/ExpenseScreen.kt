@@ -33,6 +33,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * @created 23/09/2022 - 6:23 PM
@@ -69,7 +70,13 @@ fun ExpenseScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        FormFieldSection(bottomSheetState, dropDownSheetState, coroutineScope, viewModel, fileUri)
+        FormFieldSection(
+            bottomSheetState,
+            dropDownSheetState,
+            coroutineScope,
+            viewModel,
+            fileUri
+        )
     }
 
     var filePickerOption by remember { mutableStateOf("") }
@@ -99,7 +106,7 @@ fun ExpenseScreen(
         bottomSheetState = dropDownSheetState,
         dropDownItems = CategoryData.categories
     ) {
-        //TODO -> SHOW DIALOG TO CREATE CATEGORY
+        //TODO -> SHOW DIALOG TO CREATE NEW CATEGORY
     }
 
     if (filePickerOption.isNotEmpty()) {
@@ -119,7 +126,7 @@ fun ColumnScope.FormFieldSection(
     dropDownSheetState: ModalBottomSheetState,
     coroutineScope: CoroutineScope,
     viewModel: ExpenseViewModel,
-    fileUri: List<Uri?>
+    fileUri: List<Uri?>,
 ) {
     Column(
         modifier = Modifier
@@ -180,7 +187,7 @@ fun ColumnScope.FormFieldSection(
         if (fileUri.isNotEmpty()) {
             Spacer(modifier = Modifier.height(20.dp))
 
-            FileSelected(selectedUri = fileUri)
+            FileSelected(selectedUri = fileUri) { }
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -235,7 +242,11 @@ fun ColumnScope.HowMuchSection(viewModel: ExpenseViewModel) {
 }
 
 @Composable
-fun FileSelected(selectedUri: List<Uri?>) {
+fun FileSelected(
+    selectedUri: List<Uri?>,
+    onRemoveClicked: (Uri) -> Unit
+) {
+    Timber.d("SELECTED FILE URIS -> $selectedUri")
     LazyRow(modifier = Modifier.fillMaxWidth()) {
         items(selectedUri) { uri ->
             Box(modifier = Modifier.padding(horizontal = 10.dp)) {
@@ -249,11 +260,13 @@ fun FileSelected(selectedUri: List<Uri?>) {
                         .clip(RoundedCornerShape(8.dp))
                 )
 
-                Image(
-                    painter = painterResource(id = R.drawable.ic_close),
-                    contentDescription = null,
-                    modifier = Modifier.align(Alignment.TopEnd)
-                )
+//                Image(
+//                    painter = painterResource(id = R.drawable.ic_close),
+//                    contentDescription = null,
+//                    modifier = Modifier
+//                        .align(Alignment.TopEnd)
+//                        .clickable { onRemoveClicked(uri!!) }
+//                )
             }
         }
     }
