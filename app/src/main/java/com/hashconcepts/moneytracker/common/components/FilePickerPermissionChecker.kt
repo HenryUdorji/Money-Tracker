@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
@@ -20,7 +19,6 @@ import com.google.accompanist.permissions.shouldShowRationale
 import com.hashconcepts.moneytracker.R
 import com.hashconcepts.moneytracker.common.Constants
 import com.hashconcepts.moneytracker.common.UtilMethods
-import timber.log.Timber
 import java.io.File
 
 /**
@@ -33,8 +31,7 @@ import java.io.File
 @Composable
 fun FilePickerPermissionChecker(
     filePickerOption: String,
-    onFilePickerLaunchResult: (Uri?) -> Unit,
-    onFilePickerLaunchResultList: (List<Uri?>) -> Unit,
+    onFilePickerLaunchResult: (List<Uri?>) -> Unit,
 ) {
     val storagePermission = rememberPermissionState(permission = Manifest.permission.READ_EXTERNAL_STORAGE)
     val cameraPermission = rememberPermissionState(permission = Manifest.permission.CAMERA)
@@ -47,7 +44,7 @@ fun FilePickerPermissionChecker(
         contract = ActivityResultContracts.GetMultipleContents(),
         onResult = { uri ->
             run {
-                onFilePickerLaunchResultList(uri)
+                onFilePickerLaunchResult(uri)
             }
         }
     )
@@ -57,7 +54,7 @@ fun FilePickerPermissionChecker(
         onResult = { success ->
             run {
                 if (success) {
-                    onFilePickerLaunchResult(imageUri)
+                    onFilePickerLaunchResult(listOf(imageUri))
                 }
             }
         }
@@ -68,7 +65,7 @@ fun FilePickerPermissionChecker(
         onResult = { documentUri ->
             run {
                 if (documentUri.isNotEmpty()) {
-                    onFilePickerLaunchResultList(documentUri)
+                    onFilePickerLaunchResult(documentUri)
                 }
             }
         }

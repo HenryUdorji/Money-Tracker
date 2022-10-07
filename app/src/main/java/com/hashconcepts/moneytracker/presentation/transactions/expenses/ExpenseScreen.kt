@@ -1,21 +1,27 @@
 package com.hashconcepts.moneytracker.presentation.transactions.expenses
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hashconcepts.moneytracker.R
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.hashconcepts.moneytracker.common.Constants
 import com.hashconcepts.moneytracker.common.components.*
 import com.hashconcepts.moneytracker.common.showDatePickerDialog
@@ -27,7 +33,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * @created 23/09/2022 - 6:23 PM
@@ -47,6 +52,7 @@ fun ExpenseScreen(
     val dropDownSheetState =
         rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
+    var fileUri by remember { mutableStateOf(listOf<Uri?>()) }
 
     Column(
         modifier = Modifier
@@ -63,7 +69,7 @@ fun ExpenseScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        FormFieldSection(bottomSheetState, dropDownSheetState, coroutineScope, viewModel)
+        FormFieldSection(bottomSheetState, dropDownSheetState, coroutineScope, viewModel, fileUri)
     }
 
     var filePickerOption by remember { mutableStateOf("") }
@@ -100,10 +106,7 @@ fun ExpenseScreen(
         FilePickerPermissionChecker(
             filePickerOption = filePickerOption,
             onFilePickerLaunchResult = {
-                Timber.d("FILE URI -> $it")
-            },
-            onFilePickerLaunchResultList = {
-                Timber.d("FILE URI -> $it")
+                fileUri = it
             }
         )
     }
@@ -115,7 +118,8 @@ fun ColumnScope.FormFieldSection(
     bottomSheetState: ModalBottomSheetState,
     dropDownSheetState: ModalBottomSheetState,
     coroutineScope: CoroutineScope,
-    viewModel: ExpenseViewModel
+    viewModel: ExpenseViewModel,
+    fileUri: List<Uri?>
 ) {
     Column(
         modifier = Modifier
@@ -173,7 +177,13 @@ fun ColumnScope.FormFieldSection(
             }
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        if (fileUri.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(20.dp))
+
+            FileSelected(selectedUri = fileUri)
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
 
         val context = LocalContext.current as AppCompatActivity
         val date = remember { mutableStateOf(viewModel.todayDate) }
@@ -222,4 +232,29 @@ fun ColumnScope.HowMuchSection(viewModel: ExpenseViewModel) {
         onValueChange = { amount = it },
         modifier = Modifier.fillMaxWidth()
     )
+}
+
+@Composable
+fun FileSelected(selectedUri: List<Uri?>) {
+    LazyRow(modifier = Modifier.fillMaxWidth()) {
+        items(selectedUri) { uri ->
+            Box(modifier = Modifier.padding(horizontal = 10.dp)) {
+                AsyncImage(
+                    model = Uri.parse(uri.toString()),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .height(100.dp)
+                        .width(100.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                )
+
+                Image(
+                    painter = painterResource(id = R.drawable.ic_close),
+                    contentDescription = null,
+                    modifier = Modifier.align(Alignment.TopEnd)
+                )
+            }
+        }
+    }
 }
