@@ -175,6 +175,7 @@ fun ColumnScope.FormFieldSection(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        //ADD ATTACHMENT
         CustomDottedBorderField(modifier = Modifier
             .fillMaxWidth()
             .clickable {
@@ -184,6 +185,7 @@ fun ColumnScope.FormFieldSection(
             }
         )
 
+        //LIST OF ATTACHMENTS
         if (fileUri.isNotEmpty()) {
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -246,7 +248,6 @@ fun FileSelected(
     selectedUri: List<Uri?>,
     onRemoveClicked: (Uri) -> Unit
 ) {
-    Timber.d("SELECTED FILE URIS -> $selectedUri")
     LazyRow(modifier = Modifier.fillMaxWidth()) {
         items(selectedUri) { uri ->
             Box(modifier = Modifier.padding(horizontal = 10.dp)) {
